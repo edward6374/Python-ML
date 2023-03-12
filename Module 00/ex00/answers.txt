@@ -1,0 +1,14 @@
+List of all packages and versions:
+pip3 list
+
+Show the package metadat of numpy:
+pip3 show numpy
+
+Remove the package numpy:
+pip3 uninstall numpy
+
+(Re)install the package numpy:
+pip3 install numpy
+
+Freeze your python packages and their versions in a file:
+pip3 freeze > requirements.txt
