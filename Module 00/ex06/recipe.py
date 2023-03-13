@@ -9,19 +9,19 @@ sentences = {
     4:\tPrint the CookBook
     5:\tQuit
     help: Print all the options""",
-    "Select" : "Please select an option:\n",
+    "Select" : "Please select an option:\n>> ",
     "Wrong_opt" : "Wrong option, please select one of the options available",
-    "Enter_name" : "Enter a name for the recipe:",
-    "Enter_ingr" : "Enter all the ingredients one by one:",
-    "Enter_type" : "Enter a meal type:",
-    "Enter_prep" : "Enter a preparation time:",
+    "Enter_name" : ">>> Enter a name for the recipe:\n",
+    "Enter_ingr" : ">>> Enter all the ingredients one by one:",
+    "Enter_type" : ">>> Enter a meal type:\n",
+    "Enter_prep" : ">>> Enter a preparation time:\n",
     "Recipe_created" : "Recipe created successfully",
-    "Delete_name" : "Please enter the recipe name to delete:",
-    "Delete_succ" : "Recipe deleted correctly!",
-    "Delete_fail" : "Recipe not found!",
-    "Print_name" : "Please enter a recipe name to get its details:",
+    "Delete_name" : ">>> Please enter the recipe name to delete:\n",
+    "Delete_succ" : "Recipe deleted correctly!\n",
+    "Delete_fail" : "Recipe not found!\n",
+    "Print_name" : ">>> Please enter a recipe name to get its details:\n",
     "Print_succ" : "Recipe for",
-    "Print_book" : "All the recipes in the CookBook below:",
+    "Print_book" : "All the recipes in the CookBook below:\n",
     "Quit" : "Bye bye!"
 }
 
@@ -44,7 +44,31 @@ cookbook = {
 }
 
 def add_recipe():
-    print("Add recipe")
+    control = True
+    name = input(sentences["Enter_name"])
+    ingr = []
+    print(sentences["Enter_ingr"])
+    while control:
+        one = input()
+        if one is "":
+            control = False
+        else: 
+            ingr.append(one)
+    control = True
+    typo = input(sentences["Enter_type"])
+    while control:
+        prep = input(sentences["Enter_prep"])
+        if not prep.strip().isdigit():
+            print("Insert a valid value!\n")
+        else:
+            control = False
+    new_dict = {
+        "ingredients" : ingr,
+        "meal" : typo,
+        "prep" : int(prep)
+    }
+    cookbook[name] = new_dict
+    print(sentences["Recipe_created"])
 
 def delete_recipe():
     print("Delete recipe")
@@ -53,7 +77,17 @@ def print_recipe():
     print("Print recipe")
 
 def print_cookbook():
-    print("Print cookbook")
+    print(sentences["Print_book"])
+    for i, j in cookbook.items():
+        print(i)
+        for k, l in j.items():
+            print("  ", k, ": ", end="")
+            if type(l) is list:
+                print(", ".join(l))
+            else:
+                print(l)
+        print()
+    print()
 
 if __name__ == "__main__":
     control = True
