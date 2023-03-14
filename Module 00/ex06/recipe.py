@@ -9,18 +9,18 @@ sentences = {
     4:\tPrint the CookBook
     5:\tQuit
     help: Print all the options""",
-    "Select" : "Please select an option:\n>> ",
+    "Select" : "\nPlease select an option:\n>> ",
     "Wrong_opt" : "Wrong option, please select one of the options available",
     "Enter_name" : ">>> Enter a name for the recipe:\n",
     "Enter_ingr" : ">>> Enter all the ingredients one by one:",
     "Enter_type" : ">>> Enter a meal type:\n",
     "Enter_prep" : ">>> Enter a preparation time:\n",
-    "Recipe_created" : "Recipe created successfully",
+    "Recipe_created" : "\nRecipe created successfully\n",
     "Delete_name" : ">>> Please enter the recipe name to delete:\n",
-    "Delete_succ" : "Recipe deleted correctly!\n",
-    "Delete_fail" : "Recipe not found!\n",
+    "Delete_succ" : "\nRecipe deleted correctly!\n",
+    "Delete_fail" : "\nRecipe not found!\n",
     "Print_name" : ">>> Please enter a recipe name to get its details:\n",
-    "Print_succ" : "Recipe for",
+    "Print_succ" : "\nRecipe for",
     "Print_book" : "All the recipes in the CookBook below:\n",
     "Quit" : "Bye bye!"
 }
@@ -65,16 +65,32 @@ def add_recipe():
     new_dict = {
         "ingredients" : ingr,
         "meal" : typo,
-        "prep" : int(prep)
+        "prep_time" : int(prep)
     }
     cookbook[name] = new_dict
     print(sentences["Recipe_created"])
 
 def delete_recipe():
-    print("Delete recipe")
+    name = input(sentences["Delete_name"])
+    if name not in cookbook.keys():
+        print(sentences["Delete_fail"])
+    else:
+        del cookbook[name]
+        print(sentences["Delete_succ"])
 
 def print_recipe():
-    print("Print recipe")
+    name = input(sentences["Print_name"])
+    if name not in cookbook.keys():
+        print(sentences["Delete_fail"])
+    else:
+        print(sentences["Print_succ"], name, ":")
+        for i, l in cookbook[name].items(): 
+            print("  ", i, ": ", end="")
+            if type(l) is list:
+                print(", ".join(l))
+            else:
+                print(l)
+    print()
 
 def print_cookbook():
     print(sentences["Print_book"])
@@ -104,6 +120,7 @@ if __name__ == "__main__":
         elif options == "4":
             print_cookbook()
         elif options == "5":
+            print(sentences["Quit"])
             control = False
         elif options == "help":
             print(sentences["Options"])
