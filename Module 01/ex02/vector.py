@@ -34,11 +34,30 @@ class Vector:
         self.values = result
         return result
 
+    def __add__(self, vector):
+        result = []
+        for i,l in zip(self.values, vector.values):
+            if len(i) == 1 and len(j) != 1:
+				raise TypeError("Vectors are not both of the same type")
+            if len(i) == 1:
+				print("Here")
+				if len(result) == 0:
+					result.append(i + j)
+				else:
+					result[0].append(i + j)
+			else:
+				for j,k in zip(i, l):
+					result.append([j + k])
+		print(result)
+
+
 f = Vector([[0.0], [1.0], [2.0], [3.0]])
 v = Vector([[2.0], [1.5], [2.25], [4.0]])
 print(f.dot(v))
 print(f.T())
-#print(f.values)
 print(v.T())
-#print(v.values)
 print(f.dot(v))
+print(f.values)
+print(v.values)
+v2 = v + f
+print(v2)
